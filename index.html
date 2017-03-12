@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Demo</title>
+		<style>
+			.menu {
+				width: 300px;
+			}
+
+			.menu_items {
+				width: 100%;
+			}
+
+			.menu_item {
+				padding-top: 20px;
+				display: inline-block;
+			}
+
+			.menu_item::after {
+				content: "|";
+				padding: 0 30px;
+			}
+
+			.menu_item-no-divider::after {
+				content: " ";
+				padding:0 30px;
+			}
+
+			.menu_item:last-child::after {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="menu">
+			<p class="menu_items">
+				<span class="menu_item">Html</span>
+				<span class="menu_item">Java</span>
+				<span class="menu_item">Css</span>
+				<span class="menu_item">Javascript</span>
+				<span class="menu_item">Python</span>
+				<span class="menu_item">C++</span>
+				<span class="menu_item">PHP</span>
+				<span class="menu_item">Ruby</span>
+			</p>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript">
+			var items = $(".menu_item");
+			
+			for(var index = 0; index < items.length - 1; index++) {
+				if (items[index].offsetTop !== items[index + 1].offsetTop) {
+					$(items[index]).addClass("menu_item-no-divider");
+				}
+			}
+			
+		</script>
+	</body>
+</html>

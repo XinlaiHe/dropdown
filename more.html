@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<title>Demo</title>
+		<style>
+			.menu {
+				width: 400px;
+			}
+
+			.menu-open {
+				width: 100%;
+			}
+
+			.menu_items {
+				width: 100%;
+			}
+
+			.menu_item {
+				padding-top: 20px;
+				display: inline-block;
+			}
+
+			.menu_item::after {
+				content: "|";
+				padding: 0 30px;
+			}
+
+			.menu_item:last-child::after {
+				display: none;
+			}
+
+			.menu_item-show-in-dropdown {
+				display: none;
+			}
+
+			.menu_item-with-dropdown::after {
+				content: "\25BC";
+				padding-right: 0;
+				vertical-align: top;
+			}
+
+			.menu-open .menu_item-with-dropdown::after {
+				content: "\25B2";
+				padding-right: 250px;
+			}
+
+			.menu-open .menu_item-show-in-dropdown {
+				display: inline-block;
+			}
+
+
+		</style>
+	</head>
+	<body>
+		<div class="menu">
+			<p class="menu_items">
+				<span class="menu_item">Html</span>
+				<span class="menu_item">Java</span>
+				<span class="menu_item">Css</span>
+				<span class="menu_item">Javascript</span>
+				<span class="menu_item">Python</span>
+				<span class="menu_item">C++</span>
+				<span class="menu_item">PHP</span>
+				<span class="menu_item">Ruby</span>
+			</p>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript">
+			var items = $(".menu_item");
+			var maxWidth = 450;
+			var paddingLeft = 30;
+			var currentWidth = 0;
+			
+			for(var index = 0; index < items.length - 1; index++) {
+				if (currentWidth > maxWidth) {
+					$(items[index]).addClass("menu_item-with-dropdown");
+					for (var j = index + 1; j < items.length; j++) {
+						$(items[j]).addClass("menu_item-show-in-dropdown");
+					}
+					break;
+				} else {
+					currentWidth += $(items[index]).width() + 2 * paddingLeft + $(items[index + 1]).width();
+				}
+			}
+
+			$(".menu_item-with-dropdown").click(function() {
+				$(".menu").toggleClass("menu-open");
+			})
+			
+		</script>
+	</body>
+</html>

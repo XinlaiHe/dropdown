@@ -5,10 +5,6 @@
 		<title>Demo</title>
 		<style>
 			.menu {
-				width: 400px;
-			}
-
-			.menu-open {
 				width: 100%;
 			}
 
@@ -34,15 +30,23 @@
 				display: none;
 			}
 
+			.menu_item-dropdown::after {
+				content: "\25BC";
+				padding-left: 20px;
+			}
+
 			.menu_item-with-dropdown::after {
 				content: "\25BC";
 				padding-right: 0;
 				vertical-align: top;
 			}
 
-			.menu-open .menu_item-with-dropdown::after {
+			.menu_item-no-divider::after {
+				display: none;
+			}
+
+			.menu-open .menu_item-dropdown::after {
 				content: "\25B2";
-				padding-right: 250px;
 			}
 
 			.menu-open .menu_item-show-in-dropdown {
@@ -74,7 +78,9 @@
 			
 			for(var index = 0; index < items.length - 1; index++) {
 				if (currentWidth > maxWidth) {
-					$(items[index]).addClass("menu_item-with-dropdown");
+					$(items[index]).after("<span class='menu_item-dropdown'></span>");
+					$(items[index]).addClass("menu_item-no-divider");
+					$(".menu_item-dropdown").css("margin-right", $(".menu_items").width() - $(".menu_item-dropdown").position().left - paddingLeft);
 					for (var j = index + 1; j < items.length; j++) {
 						$(items[j]).addClass("menu_item-show-in-dropdown");
 					}
@@ -84,7 +90,7 @@
 				}
 			}
 
-			$(".menu_item-with-dropdown").click(function() {
+			$(".menu_item-dropdown").click(function() {
 				$(".menu").toggleClass("menu-open");
 			})
 			
